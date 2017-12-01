@@ -50,27 +50,29 @@ class TasksList extends Component {
     }
 
     renderSorts () {
-        return (
-            <div className="tasks__sort">
-                <div className="tasks__sort-title">Сортировка</div>
-                <div className="tasks__sort-col">
-                    <label className="tasks__sort-label" htmlFor="">По направлению</label>
-                    <select name="sortDir" value={this.state.sortDir} id="" onChange={this.changeSort}>
-                        <option value="asc">asc</option>
-                        <option value="desc">desc</option>
-                    </select>
+        if (this.props.pages > 1) {
+            return (
+                <div className="tasks__sort">
+                    <div className="tasks__sort-title">Сортировка</div>
+                    <div className="tasks__sort-col">
+                        <label className="tasks__sort-label" htmlFor="">По направлению</label>
+                        <select name="sortDir" value={this.state.sortDir} id="" onChange={this.changeSort}>
+                            <option value="asc">asc</option>
+                            <option value="desc">desc</option>
+                        </select>
+                    </div>
+                    <div className="tasks__sort-col">
+                        <label className="tasks__sort-label" htmlFor="">По полю</label>
+                        <select name="sortField" value={this.state.sortField} onChange={this.changeSort} id="">
+                            <option value="id">id</option>
+                            <option value="username">username</option>
+                            <option value="email">email</option>
+                            <option value="status">status</option>
+                        </select>
+                    </div>
                 </div>
-                <div className="tasks__sort-col">
-                    <label className="tasks__sort-label" htmlFor="">По полю</label>
-                    <select name="sortField" value={this.state.sortField} onChange={this.changeSort} id="">
-                        <option value="id">id</option>
-                        <option value="username">username</option>
-                        <option value="email">email</option>
-                        <option value="status">status</option>
-                    </select>
-                </div>
-            </div>
-        )
+            )
+        }
     }
 
     renderPagination () {
