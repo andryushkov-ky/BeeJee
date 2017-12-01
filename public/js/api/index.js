@@ -5,7 +5,7 @@ import tasks2 from './mockClients2'
 export const fetchTasks = async (page) => {
     try {
         const {body} = await request.get(
-            `http://uxcandy.com/~shapoval/test-task-backend?developer=testmegod&page=${page}`
+            `https://uxcandy.com/~shapoval/test-task-backend?developer=testmegod&page=${page}`
         )
         console.log(body)
         return body.message
