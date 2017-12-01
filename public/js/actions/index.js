@@ -11,11 +11,11 @@ import {
     fetchTasks as fetchTasksApi
 } from '../api'
 
-export const fetchTasks = (page) => async dispatch => {
+export const fetchTasks = (page, dir, field) => async dispatch => {
     dispatch({type: FETCH_TASKS_START})
 
     try {
-        const tasks = await fetchTasksApi(page)
+        const tasks = await fetchTasksApi(page, dir, field)
         dispatch({
             type: FETCH_TASKS_SUCCESS,
             payload: tasks

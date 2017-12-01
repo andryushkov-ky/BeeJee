@@ -20,6 +20,8 @@ class Task extends Component {
 
     submit (task) {
         const {data} = this.props;
+        //todo edit
+        console.log('new data', task, 'but edit dont work')
         //someAwesomeManipulation
         // request
         //     .post(`https://uxcandy.com/~shapoval/test-task-backend/edit/${data.id}`)

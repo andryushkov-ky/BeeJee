@@ -24,17 +24,53 @@ class TasksList extends Component {
         };
 
         this.renderPagination = this.renderPagination.bind(this)
+        this.renderSorts = this.renderSorts.bind(this)
+        this.changeSort = this.changeSort.bind(this)
     }
 
     componentDidMount () {
-        this.props.fetchTasks(this.state.currentPage)
+        this.props.fetchTasks(this.state.currentPage, this.state.sortDir, this.state.sortField)
     }
 
-    changePage (currentPage) {
-        this.setState({
+    async changePage (currentPage) {
+        await this.setState({
             currentPage
         })
-        this.props.fetchTasks(currentPage);
+
+        this.props.fetchTasks(this.state.currentPage, this.state.sortDir, this.state.sortField)
+    }
+
+    async changeSort ({target}) {
+        await this.setState({
+            [target.name]: target.value,
+            currentPage: 1
+        })
+
+        this.props.fetchTasks(this.state.currentPage, this.state.sortDir, this.state.sortField)
+    }
+
+    renderSorts () {
+        return (
+            <div className="tasks__sort">
+                <div className="tasks__sort-title">Сортировка</div>
+                <div className="tasks__sort-col">
+                    <label className="tasks__sort-label" htmlFor="">По направлению</label>
+                    <select name="sortDir" value={this.state.sortDir} id="" onChange={this.changeSort}>
+                        <option value="asc">asc</option>
+                        <option value="desc">desc</option>
+                    </select>
+                </div>
+                <div className="tasks__sort-col">
+                    <label className="tasks__sort-label" htmlFor="">По полю</label>
+                    <select name="sortField" value={this.state.sortField} onChange={this.changeSort} id="">
+                        <option value="id">id</option>
+                        <option value="username">username</option>
+                        <option value="email">email</option>
+                        <option value="status">status</option>
+                    </select>
+                </div>
+            </div>
+        )
     }
 
     renderPagination () {
@@ -66,12 +102,15 @@ class TasksList extends Component {
                     className="tasks__header">
                     Список задач
                 </div>
-                {this.renderPagination()}
+                {this.renderSorts()}
+
                 <div className="tasks__list">
                     {!!tasks.length && tasks.map((task, index) =>
                         <Task data={task} key={index}/>
                     )}
                 </div>
+
+                {this.renderPagination()}
             </div>
         )
     }
