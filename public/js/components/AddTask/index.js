@@ -29,21 +29,7 @@ class AddTask extends Component {
     }
 
     submit (task) {
-        request
-            .post('https://uxcandy.com/~shapoval/test-task-backend/create?developer=testmegod')
-            .field('username', task.username)
-            .field('email', task.email)
-            .field('text', task.text)
-            .attach('image', this.state.img)
-            .end((err, res) => {
-            //todo add loader
-                console.log(err, res);
-                if (res && res.body && res.body.status && res.body.status === 'ok') {
-                    alert('Ваша задача создана');
-                } else {
-                    alert('Увы, что-то пошло не так');
-                }
-            })
+        this.props.addTask(task, this.state.img);
         this.togglePopup(false);
     }
 

@@ -9,7 +9,7 @@ const initialState = 0
 export default (state = initialState, {type, payload}) => {
     switch (type) {
         case FETCH_TASKS_SUCCESS:
-            return payload.total_task_count
+            return Math.ceil(payload.message.total_task_count/3)
         default:
             return state
     }

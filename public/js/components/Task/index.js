@@ -1,10 +1,16 @@
 import React, {Component} from 'react'
 import ReactDOM from 'react-dom'
 import {connect} from 'react-redux'
+import R from 'ramda'
 
 import {
     hasEntered
 } from '../../selectors'
+
+import {
+    updateTask
+} from '../../actions'
+
 import Form from "./form";
 
 class Task extends Component {
@@ -19,27 +25,12 @@ class Task extends Component {
     }
 
     submit (task) {
-        const {data} = this.props;
-        //todo edit
-        console.log('new data', task, 'but edit dont work')
-        //someAwesomeManipulation
-        // request
-        //     .post(`https://uxcandy.com/~shapoval/test-task-backend/edit/${data.id}`)
-        //     .field('username', data.username)
-        //     .field('email', data.email)
-        //     .field('text', task.text)
-        //     .field('token', 'beejee')
-        //     .attach('image', this.state.img)
-        //     .end((err, res) => {
-        //         //todo add loader
-        //         console.log(err, res);
-        //         if (res && res.body && res.body.status && res.body.status === 'ok') {
-        //             alert('Ваша задача создана');
-        //         } else {
-        //             alert('Увы, что-то пошло не так');
-        //         }
-        //     })
+        const {data} = this.props
+        const newVal = R.merge(data, task);
 
+        newVal.status = newVal.status && 10;
+
+        this.props.updateTask(newVal)
         this.changeMode(false);
     }
 
@@ -84,7 +75,7 @@ const mapStateToProps = (state, ownProps) => ({
 
 
 const mapDispatchToProps = {
-
+    updateTask
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Task)

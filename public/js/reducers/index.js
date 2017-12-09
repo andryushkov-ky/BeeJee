@@ -3,7 +3,7 @@ import {routerReducer} from 'react-router-redux'
 import { reducer as formReducer } from 'redux-form'
 
 import {
-    ADD_TASK,
+    ADD_TASK_SUCCESS,
     LOGIN_ADMIN
 } from '../actionTypes';
 
@@ -20,7 +20,7 @@ export default combineReducers({
     form: formReducer.plugin({
         createTask: (state, action) => {
             switch(action.type) {
-                case ADD_TASK:
+                case ADD_TASK_SUCCESS:
                     return undefined;
                 default:
                     return state;

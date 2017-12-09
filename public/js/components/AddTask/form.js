@@ -108,7 +108,16 @@ class Form extends React.Component {
                 }
 
                 <div className="form__btn-wrap">
-                    <button disabled={this.props.submitting || !this.state.accepted.length} onClick={this.props.addFile.bind(this, this.state.accepted)} type="submit" className="form__btn">Создать</button>
+                    <button
+                        disabled={this.props.submitting || !this.state.accepted.length}
+                        onClick={() => {
+                            this.props.addFile(this.state.accepted)
+                            setTimeout(() => {this.setState({accepted: []})}, 0)
+                        }}
+                        type="submit"
+                        className="form__btn">
+                            Создать
+                    </button>
                     <div className="form__btn--look form__btn" onClick={this.toggleObserve.bind(this, true)}>{ `${!this.state.observe ? "Просмотреть" : "Изменить"}` }</div>
                 </div>
             </form>
